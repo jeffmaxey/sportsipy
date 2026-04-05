@@ -1,4 +1,4 @@
-import mock
+from unittest import mock
 import pytest
 from flexmock import flexmock
 from os.path import join, dirname

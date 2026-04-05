@@ -1,5 +1,5 @@
 import pytest
-from mock import patch
+from unittest.mock import patch
 from flexmock import flexmock
 from sportsipy import utils
 

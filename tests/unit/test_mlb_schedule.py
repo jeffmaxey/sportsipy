@@ -1,7 +1,7 @@
 import pytest
 from datetime import datetime
 from flexmock import flexmock
-from mock import PropertyMock
+from unittest.mock import PropertyMock
 from sportsipy.constants import (AWAY,
                                  HOME,
                                  LOSS,

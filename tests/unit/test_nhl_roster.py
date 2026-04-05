@@ -1,5 +1,5 @@
 from flexmock import flexmock
-from mock import patch, PropertyMock
+from unittest.mock import patch, PropertyMock
 from sportsipy.nhl.player import AbstractPlayer
 from sportsipy.nhl.roster import Player
 

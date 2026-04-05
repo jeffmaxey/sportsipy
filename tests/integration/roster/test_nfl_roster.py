@@ -1,4 +1,4 @@
-import mock
+from unittest import mock
 import os
 import pandas as pd
 import pytest

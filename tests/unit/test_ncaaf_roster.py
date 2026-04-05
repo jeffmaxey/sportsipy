@@ -1,6 +1,6 @@
 import pytest
 from flexmock import flexmock
-from mock import patch, PropertyMock
+from unittest.mock import patch, PropertyMock
 from sportsipy.ncaaf.player import AbstractPlayer
 from sportsipy.ncaaf.roster import Player
 

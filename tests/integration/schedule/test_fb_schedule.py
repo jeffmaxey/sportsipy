@@ -2,7 +2,7 @@ import pandas as pd
 import pytest
 from datetime import datetime
 from flexmock import flexmock
-from mock import patch
+from unittest.mock import patch
 from os import path
 from pyquery import PyQuery as pq
 from sportsipy import utils

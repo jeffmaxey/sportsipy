@@ -1,4 +1,4 @@
-import mock
+from unittest import mock
 import pandas as pd
 from flexmock import flexmock
 from os import path

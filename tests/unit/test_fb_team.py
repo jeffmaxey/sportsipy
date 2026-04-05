@@ -1,4 +1,4 @@
-import mock
+from unittest import mock
 import pytest
 from flexmock import flexmock
 from sportsipy.fb.roster import Roster
