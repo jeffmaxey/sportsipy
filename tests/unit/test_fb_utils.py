@@ -19,7 +19,7 @@ class TestFBUtils:
     def test_squad_lookup_doesnt_suppress(self):
         output = lookup_squad_id('madeup city')
 
-        assert type(output) == dict
+        assert isinstance(output, dict)
 
     def test_team_name_lookup(self):
         test_names = {

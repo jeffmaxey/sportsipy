@@ -317,7 +317,9 @@ def _pull_page(url=None, local_file=None):
         with open(local_file, 'r', encoding='utf8') as filehandle:
             return pq(filehandle.read())
     if url:
-        return pq(url)
+        response = requests.get(url)
+        response.raise_for_status()
+        return pq(response.text)
     raise ValueError('Expected either a URL or a local data file!')
 
 

@@ -1,7 +1,7 @@
 from .constants import PARSING_SCHEME, SEASON_PAGE_URL
 from pyquery import PyQuery as pq
 from sportsipy import utils
-from urllib.error import HTTPError
+import requests
 
 
 def _add_stats_data(teams_list, team_data_dict):
@@ -72,8 +72,9 @@ def _retrieve_all_teams(year, season_file=None):
         # instead.
         if year == 2021:
             try:
-                doc = pq(SEASON_PAGE_URL % year)
-            except HTTPError:
+                response = requests.get(SEASON_PAGE_URL % year)
+                response.raise_for_status()
+            except requests.exceptions.RequestException:
                 year = str(int(year) - 1)
         # If stats for the requested season do not exist yet (as is the case
         # right before a new season begins), attempt to pull the previous

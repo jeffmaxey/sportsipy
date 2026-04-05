@@ -17,6 +17,11 @@ def mock_pyquery(url):
         def __call__(self, div):
             return self.html_contents
 
+        def raise_for_status(self):
+            if self.status_code >= 400:
+                import requests
+                raise requests.exceptions.HTTPError(response=self)
+
     if '2021' in url:
         return MockPQ('<div/>', status_code=404)
     else:

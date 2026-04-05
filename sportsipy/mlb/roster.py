@@ -3,7 +3,7 @@ import re
 from functools import wraps
 from lxml.etree import ParserError, XMLSyntaxError
 from pyquery import PyQuery as pq
-from urllib.error import HTTPError
+import requests
 from .. import utils
 from .constants import (NATIONALITY,
                         PLAYER_ELEMENT_INDEX,
@@ -247,8 +247,10 @@ class Player(AbstractPlayer):
         """
         url = self._build_url()
         try:
-            url_data = pq(url)
-        except HTTPError:
+            response = requests.get(url)
+            response.raise_for_status()
+            url_data = pq(response.text)
+        except requests.exceptions.RequestException:
             return None
         return pq(utils._remove_html_comment_tags(url_data))
 
@@ -1489,8 +1491,10 @@ class Roster:
             Returns a PyQuery object of the team's HTML page.
         """
         try:
-            return pq(url)
-        except HTTPError:
+            response = requests.get(url)
+            response.raise_for_status()
+            return pq(response.text)
+        except requests.exceptions.RequestException:
             return None
 
     def _create_url(self, year):

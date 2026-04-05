@@ -12,7 +12,7 @@ from sportsipy.constants import (AWAY,
                                  LOSS,
                                  NEUTRAL,
                                  WIN)
-from urllib.error import HTTPError
+import requests
 
 
 class Game:
@@ -613,8 +613,10 @@ class Schedule:
         if not doc:
             squad_id = _lookup_team(team_id)
             try:
-                doc = pq(SQUAD_URL % squad_id)
-            except HTTPError:
+                response = requests.get(SQUAD_URL % squad_id)
+                response.raise_for_status()
+                doc = pq(response.text)
+            except requests.exceptions.RequestException:
                 return
         schedule = utils._get_stats_table(doc, 'table#matchlogs_all')
 

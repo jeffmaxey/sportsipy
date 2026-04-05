@@ -1,6 +1,6 @@
 import re
 from pyquery import PyQuery as pq
-from urllib.error import HTTPError
+import requests
 from .. import utils
 from .constants import CFP_RANKINGS_URL, RANKINGS_SCHEME, RANKINGS_URL
 
@@ -54,8 +54,10 @@ class Rankings:
             Returns a PyQuery object of the rankings HTML page.
         """
         try:
-            return pq(RANKINGS_URL % year)
-        except HTTPError:
+            response = requests.get(RANKINGS_URL % year)
+            response.raise_for_status()
+            return pq(response.text)
+        except requests.exceptions.RequestException:
             return None
 
     def _get_team(self, team):
@@ -269,8 +271,10 @@ class CFPRankings:
             Returns a PyQuery object of the rankings HTML page.
         """
         try:
-            return pq(RANKINGS_URL % year)
-        except HTTPError:
+            response = requests.get(RANKINGS_URL % year)
+            response.raise_for_status()
+            return pq(response.text)
+        except requests.exceptions.RequestException:
             return None
 
     def _get_team(self, team):

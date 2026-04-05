@@ -120,7 +120,7 @@ def _lookup_team(team_id):
     if team_id.lower() in SQUAD_IDS.values():
         return team_id.lower()
     name = lookup_squad_id(team_id)
-    if type(name) == str:
+    if isinstance(name, str):
         return name
     error_message = ('Team ID of "%s" not found. Did you mean one of the '
                      'following?\n%s' % (team_id, name))
