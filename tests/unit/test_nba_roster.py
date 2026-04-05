@@ -28,6 +28,11 @@ def mock_pyquery(url):
             self.html_contents = html_contents
             self.text = html_contents
 
+        def raise_for_status(self):
+            if self.status_code >= 400:
+                import requests
+                raise requests.exceptions.HTTPError(response=self)
+
     return MockPQ(None)
 
 

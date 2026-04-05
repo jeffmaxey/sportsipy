@@ -8,7 +8,7 @@ from pyquery import PyQuery as pq
 from sportsipy.utils import (_get_stats_table,
                              _parse_field,
                              _remove_html_comment_tags)
-from urllib.error import HTTPError
+import requests
 
 
 class SquadPlayer:
@@ -1642,9 +1642,10 @@ class Roster:
         """
         if not doc:
             try:
-                doc = pq(SQUAD_URL % self._squad_id)
-                doc = pq(_remove_html_comment_tags(doc))
-            except HTTPError:
+                response = requests.get(SQUAD_URL % self._squad_id)
+                response.raise_for_status()
+                doc = pq(_remove_html_comment_tags(pq(response.text)))
+            except requests.exceptions.RequestException:
                 return None
         stats_table = []
         player_data_dict = {}

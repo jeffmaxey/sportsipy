@@ -6,7 +6,7 @@ from pyquery import PyQuery as pq
 from .roster import Roster
 from .schedule import Schedule
 from .squad_ids import SQUAD_IDS
-from urllib.error import HTTPError
+import requests
 from .. import utils
 
 
@@ -309,7 +309,7 @@ class Team:
         """
         try:
             doc = utils._pull_page(SQUAD_URL % self.squad_id, squad_page)
-        except HTTPError:
+        except requests.exceptions.RequestException:
             return
         self._doc = doc
         self._parse_name(doc)

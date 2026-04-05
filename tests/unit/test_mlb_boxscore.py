@@ -45,6 +45,11 @@ def mock_pyquery(url):
             self.reason = '404'
             self.headers = None
 
+        def raise_for_status(self):
+            if self.status_code >= 400:
+                import requests
+                raise requests.exceptions.HTTPError(response=self)
+
     return MockPQ(None)
 
 

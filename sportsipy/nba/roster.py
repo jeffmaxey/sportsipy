@@ -4,7 +4,7 @@ from datetime import datetime
 from functools import wraps
 from lxml.etree import ParserError, XMLSyntaxError
 from pyquery import PyQuery as pq
-from urllib.error import HTTPError
+import requests
 from .. import utils
 from .constants import NATIONALITY, PLAYER_SCHEME, PLAYER_URL, ROSTER_URL
 from .player import AbstractPlayer
@@ -235,8 +235,10 @@ class Player(AbstractPlayer):
         """
         url = self._build_url()
         try:
-            url_data = pq(url)
-        except (HTTPError, ParserError):
+            response = requests.get(url)
+            response.raise_for_status()
+            url_data = pq(response.text)
+        except requests.exceptions.RequestException:
             return None
         return pq(utils._remove_html_comment_tags(url_data))
 
@@ -1422,8 +1424,10 @@ class Roster:
             Returns a PyQuery object of the team's HTML page.
         """
         try:
-            return pq(url)
-        except HTTPError:
+            response = requests.get(url)
+            response.raise_for_status()
+            return pq(response.text)
+        except requests.exceptions.RequestException:
             return None
 
     def _create_url(self, year):
@@ -1535,8 +1539,9 @@ class Roster:
             # be pulled instead.
             if year == 2021:
                 try:
-                    doc = pq(self._create_url(year))
-                except HTTPError:
+                    response = requests.get(self._create_url(year))
+                    response.raise_for_status()
+                except requests.exceptions.RequestException:
                     year = str(int(year) - 1)
             # If stats for the requested season do not exist yet (as is the
             # case right before a new season begins), attempt to pull the

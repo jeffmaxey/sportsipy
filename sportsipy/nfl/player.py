@@ -3,7 +3,6 @@ import re
 from functools import wraps
 from lxml.etree import ParserError, XMLSyntaxError
 from pyquery import PyQuery as pq
-from urllib.error import HTTPError
 from .. import utils
 from .constants import PLAYER_SCHEME, PLAYER_URL, ROSTER_URL
 
@@ -196,7 +195,7 @@ class AbstractPlayer:
                short_field == 'detailed_stats_index':
                 continue
             field_stats = []
-            if type(player_data) == dict:
+            if isinstance(player_data, dict):
                 for year, data in player_data.items():
                     stats = pq(data['data'])
                     value = self._parse_value(stats, short_field)

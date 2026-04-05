@@ -177,7 +177,7 @@ class AbstractPlayer:
                short_field == 'nationality':
                 continue
             field_stats = []
-            if type(player_data) == dict:
+            if isinstance(player_data, dict):
                 for year, data in player_data.items():
                     stats = pq(data['data'])
                     value = self._parse_value(stats, short_field)

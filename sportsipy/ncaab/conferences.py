@@ -1,6 +1,6 @@
 from pyquery import PyQuery as pq
 import re
-from urllib.error import HTTPError
+import requests
 from .. import utils
 from .constants import CONFERENCE_URL, CONFERENCES_URL
 
@@ -55,8 +55,11 @@ class Conference:
             A string of the requested year to pull conference information from.
         """
         try:
-            return pq(CONFERENCE_URL % (conference_abbreviation, year))
-        except HTTPError:
+            url = CONFERENCE_URL % (conference_abbreviation, year)
+            response = requests.get(url)
+            response.raise_for_status()
+            return pq(response.text)
+        except requests.exceptions.RequestException:
             return None
 
     def _get_team_abbreviation(self, team):
@@ -184,8 +187,10 @@ class Conferences:
             Returns a PyQuery object of the conference HTML page.
         """
         try:
-            return pq(CONFERENCES_URL % year)
-        except HTTPError:
+            response = requests.get(CONFERENCES_URL % year)
+            response.raise_for_status()
+            return pq(response.text)
+        except requests.exceptions.RequestException:
             return None
 
     def _get_conference_id(self, conference):

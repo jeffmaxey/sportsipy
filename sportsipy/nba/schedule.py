@@ -14,7 +14,7 @@ from sportsipy.constants import (WIN,
                                  REGULAR_SEASON,
                                  CONFERENCE_TOURNAMENT)
 from sportsipy.nba.boxscore import Boxscore
-from urllib.error import HTTPError
+import requests
 
 
 class Game:
@@ -435,8 +435,10 @@ class Schedule:
             # be pulled instead.
             if year == 2021:
                 try:
-                    doc = pq(SCHEDULE_URL % (abbreviation.lower(), year))
-                except HTTPError:
+                    url = SCHEDULE_URL % (abbreviation.lower(), year)
+                    response = requests.get(url)
+                    response.raise_for_status()
+                except requests.exceptions.RequestException:
                     year = str(int(year) - 1)
             # If stats for the requested season do not exist yet (as is the
             # case right before a new season begins), attempt to pull the
@@ -447,7 +449,8 @@ class Schedule:
                utils._url_exists(SCHEDULE_URL % (abbreviation.lower(),
                                                  str(int(year) - 1))):
                 year = str(int(year) - 1)
-        doc = pq(SCHEDULE_URL % (abbreviation, year))
+        response = requests.get(SCHEDULE_URL % (abbreviation, year))
+        doc = pq(response.text)
         schedule = utils._get_stats_table(doc, 'table#games')
         if not schedule:
             utils._no_data_found()
