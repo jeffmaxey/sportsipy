@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sportsipy"
+dynamic = ["version"]
+description = "A free sports API written for python"
+readme = {file = "README.rst", content-type = "text/x-rst"}
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Robert Clark", email = "robdclark@outlook.com"},
+]
+keywords = ["stats", "sports", "api", "sportsipy", "machine learning"]
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+]
+dependencies = [
+    "numpy >= 2.0.0",
+    "pandas >= 2.2.0",
+    "pyquery >= 2.0.0",
+    "requests >= 2.32.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/roclark/sportsipy"
+
+[tool.setuptools.dynamic]
+version = {file = "VERSION"}
+
+[tool.setuptools.packages.find]
+include = ["sportsipy*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.pycodestyle]
+max-line-length = 79
