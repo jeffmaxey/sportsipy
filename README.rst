@@ -43,6 +43,8 @@ to download and install the latest official release of `sportsipy` on
 your machine. You now have the latest stable version of `sportsipy`
 installed and can begin using it following the examples below!
 
+`sportsipy` requires Python 3.10 or later.
+
 If the bleeding-edge version of `sportsipy` is desired, clone this
 repository using git and install all of the package requirements with PIP::
 
@@ -53,7 +55,7 @@ repository using git and install all of the package requirements with PIP::
 Once complete, create a Python wheel for your default version of Python by
 running the following command::
 
-    python setup.py sdist bdist_wheel
+    python -m build
 
 This will create a `.whl` file in the `dist` directory which can be installed
 with the following command::
