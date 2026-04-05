@@ -1,6 +1,6 @@
 from datetime import datetime
 from flexmock import flexmock
-from mock import PropertyMock
+from unittest.mock import PropertyMock
 from pyquery import PyQuery as pq
 from sportsipy import utils
 from sportsipy.constants import (AWAY,

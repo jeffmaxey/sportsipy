@@ -1,5 +1,5 @@
 from flexmock import flexmock
-from mock import PropertyMock
+from unittest.mock import PropertyMock
 from sportsipy.mlb.schedule import Schedule
 from sportsipy.mlb.teams import Team
 

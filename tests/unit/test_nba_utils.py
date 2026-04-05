@@ -1,4 +1,4 @@
-import mock
+from unittest import mock
 from flexmock import flexmock
 from sportsipy import utils
 from sportsipy.nba.nba_utils import _retrieve_all_teams

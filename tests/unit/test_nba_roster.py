@@ -1,5 +1,5 @@
 from flexmock import flexmock
-from mock import patch, PropertyMock
+from unittest.mock import patch, PropertyMock
 from sportsipy.nba.player import (AbstractPlayer,
                                   _cleanup as _cleanup_player)
 from sportsipy.nba.roster import _cleanup, Player

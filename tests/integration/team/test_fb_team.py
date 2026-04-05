@@ -1,4 +1,4 @@
-from mock import patch
+from unittest.mock import patch
 from os import path
 from sportsipy.fb.team import Team
 
