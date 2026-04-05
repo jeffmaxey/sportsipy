@@ -1,0 +1,6 @@
+Metadata-Version: 2.4
+Name: sportsipy-dashboard
+Version: 0.1.0
+Summary: Interactive web dashboard for sportsipy data exploration
+Requires-Python: >=3.10
+Dynamic: requires-python
